@@ -89,24 +89,26 @@ module "dns_recordset_batch" {
   folder_id = data.yandex_client_config.client.folder_id
   zone_id   = module.dns_zone.id
   default_ttl = 600
-  records = {
-    # Can be specified without zone. Final name will be test1.apatsev.org.ru.
-    test1 = {
+  records = [
+    {
+      # Name can be specified without zone. Final name will be test1.apatsev.org.ru.
+      name = "test1"
       type = "A"
       data = [
         module.yandex_compute_instance.instance_public_ip,
       ]
-    }
+    },
+    {
     # Or specified as full name
-    "test2.apatsev.org.ru." = {
+      name = "test2.apatsev.org.ru."
       type = "A"
       # ttl can be overrided
       ttl = 120
       data = [
         module.yandex_compute_instance.instance_public_ip,
       ]
-    }
-  }
+    },
+  ]
   timeouts = {
     create = "2m"
     update = "2m"
