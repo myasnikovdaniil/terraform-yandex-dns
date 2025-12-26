@@ -33,8 +33,9 @@ variable "timeouts" {
 #
 
 variable "records" {
-  description = "List of managed records. Keys of map are names of dns records, can be specified with or without domain suffix."
-  type = map(object({
+  description = "List of managed records. Names can be specified with or without domain suffix."
+  type = list(object({
+      name = string
       type = string
       data = list(string) 
       ttl  = optional(string)
